@@ -16,8 +16,7 @@ import java.util.List;
  * @since 0.0.1
  */
 public interface TransactionController {
-	ResponseEntity<TransactionDTO> createTransaction(@RequestBody @Valid TransactionDTO transactionDTO,
-																									 UriComponentsBuilder uriComponentsBuilder);
+	ResponseEntity<TransactionDTO> createTransaction(@RequestBody @Valid TransactionDTO transactionDTO, UriComponentsBuilder uriComponentsBuilder);
 
 	ResponseEntity<List<TransactionDTO>> findTransactionsByAccountIban(
 					@RequestParam String accountIban,

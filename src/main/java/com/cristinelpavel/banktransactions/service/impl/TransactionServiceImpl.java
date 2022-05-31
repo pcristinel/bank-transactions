@@ -117,9 +117,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 			default -> {
 				return TransactionStatusResponseDTO.builder()
-									.reference(reference)
-									.status(Status.INVALID)
-									.build();
+								.reference(reference)
+								.status(Status.INVALID)
+								.build();
 			}
 		}
 	}

@@ -44,7 +44,7 @@ public class TransactionControllerImpl implements TransactionController {
 
 	@GetMapping("/search")
 	public ResponseEntity<List<TransactionDTO>> findTransactionsByAccountIban(
-					@RequestParam String accountIban,
+					@RequestParam("account_iban") String accountIban,
 					@RequestParam(required = false, defaultValue = "amount") String sortField,
 					@RequestParam(required = false, defaultValue = "DESC") String sortOrder) {
 
