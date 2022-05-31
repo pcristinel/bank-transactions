@@ -1,49 +1,46 @@
 package com.cristinelpavel.banktransactions.model;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author pcristinel
  * @since 0.0.1
  */
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Transaction {
 
 	@Id
 	@GeneratedValue
-	private Long reference;
+	@Column(columnDefinition = "uuid")
+	private UUID reference;
 
+	@NotNull
+	@Column(nullable = false)
 	private String accountIban;
 
 	private Instant date;
 
-	private Double amount;
+	@NotNull
+	@Column(nullable = false)
+	private BigDecimal amount;
 
-	private Double fee;
+	private BigDecimal fee;
 
 	private String description;
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-		Transaction that = (Transaction) o;
-		return reference != null && Objects.equals(reference, that.reference);
-	}
-
-	@Override
-	public int hashCode() {
-		return getClass().hashCode();
-	}
 }

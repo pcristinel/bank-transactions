@@ -1,11 +1,14 @@
 package com.cristinelpavel.banktransactions.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 /**
  * @author pcristinel
@@ -14,17 +17,18 @@ import java.time.Instant;
 @Data
 @Builder
 public class TransactionDTO {
-	private Long reference;
+	private UUID reference;
 
 	@NotEmpty
+	@JsonProperty("account_iban")
 	private String accountIban;
 
 	private Instant date;
 
 	@NotNull
-	private Double amount;
+	private BigDecimal amount;
 
-	private Double fee;
+	private BigDecimal fee;
 
 	private String description;
 }
