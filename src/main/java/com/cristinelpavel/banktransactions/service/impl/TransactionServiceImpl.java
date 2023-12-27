@@ -10,14 +10,10 @@ import com.cristinelpavel.banktransactions.model.Transaction;
 import com.cristinelpavel.banktransactions.repository.TransactionRepository;
 import com.cristinelpavel.banktransactions.service.AccountService;
 import com.cristinelpavel.banktransactions.service.TransactionService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import io.micrometer.observation.annotation.Observed;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -25,6 +21,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author pcristinel
@@ -55,6 +55,7 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionRepository.save(transaction);
 	}
 
+	@Observed(name = "transaction", contextualName = "findTransactionsByAccountIban")
 	public List<Transaction> findTransactionsByAccountIban(@NotBlank String accountIban, @NotNull Sort sort) {
 		Optional<List<Transaction>> transactionsList = transactionRepository.findByAccountIban(accountIban, sort);
 

@@ -3,7 +3,7 @@ spring:
     console:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
     username: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -11,3 +11,33 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,beans,configprops,heapdump,httpexchanges,loggers,mappings,custom-beans,prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    env:
+      show-values: always
+    configprops:
+      show-values: always
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+    git:
+      enabled: true
+      mode: full
+    java:
+      enabled: true
+    os:
+      enabled: true
+    tracing:
+      sampling:
+        probability: 1 # Only for demo purpose, change it back to 0.1 in production.
